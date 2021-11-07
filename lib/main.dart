@@ -41,6 +41,52 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      //BLoC listener is used to listening the state change in the cubit state section
+      // body: BlocListener<CounterCubit, CounterState>(
+      //   listener: (context, state) {
+      //     if (state.isIncreament) {
+      //       ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      //       //it is used to show the current snackbar message, by overwriting the previous snackbar message.
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(
+      //           content: Text(
+      //             "Counter Incremented",
+      //           ),
+      //           duration: Duration(milliseconds: 300),
+      //         ),
+      //       );
+      //     } else {
+      //       ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(
+      //           content: Text(
+      //             "Counter Decremented",
+      //           ),
+      //           duration: Duration(milliseconds: 300),
+      //         ),
+      //       );
+      //     }
+      //   },
+      //   child: Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: <Widget>[
+      //         const Text(
+      //           'You have pushed the button this many times:',
+      //         ),
+      //BLoC Builder is used to listening the state change in the cubit state section and rebuild the ui according to that.
+      //         BlocBuilder<CounterCubit, CounterState>(
+      //           builder: (context, state) {
+      //             return Text(
+      //               "${state.counterValue}",
+      //               style: Theme.of(context).textTheme.headline4,
+      //             );
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +94,33 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder<CounterCubit, CounterState>(
+
+            //BLoC consumer is used to combine the both BLoC builder and BLoC Listener in a single body
+            BlocConsumer<CounterCubit, CounterState>(
+              listener: (context, state) {
+                if (state.isIncreament) {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  //it is used to show the current snackbar message, by overwriting the previous snackbar message.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        "Counter Incremented",
+                      ),
+                      duration: Duration(milliseconds: 300),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        "Counter Decremented",
+                      ),
+                      duration: Duration(milliseconds: 300),
+                    ),
+                  );
+                }
+              },
               builder: (context, state) {
                 return Text(
                   "${state.counterValue}",
