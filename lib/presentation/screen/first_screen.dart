@@ -1,4 +1,6 @@
+import 'package:counter_bloc_cubit/constants/enums.dart';
 import 'package:counter_bloc_cubit/logic/cubit/counter_cubit.dart';
+import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
 import 'package:counter_bloc_cubit/presentation/screen/second_screen.dart';
 import 'package:counter_bloc_cubit/presentation/screen/third_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,13 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  Text internetConnectionState(String _connectionType) {
+    return Text(
+      _connectionType,
+      style: const TextStyle(fontSize: 25),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +33,21 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+              if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.wifi) {
+                return internetConnectionState("Wifi");
+              } else if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.mobile) {
+                return internetConnectionState("Mobile");
+              } else if (state is InternetDisconnected) {
+                return internetConnectionState("Disconnected");
+              } else {
+                return const CircularProgressIndicator();
+              }
+            }),
+            const SizedBox(height: 15),
             const Text(
               'You have pushed the button this many times:',
             ),

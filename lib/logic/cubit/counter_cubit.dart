@@ -1,8 +1,35 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:counter_bloc_cubit/constants/enums.dart';
+
+import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
+
 part 'counter_state.dart';
 
 class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterState(counterValue: 0, isIncreament: false));
+  final InternetCubit internetCubit;
+  late StreamSubscription internetStreamSubscription;
+
+  CounterCubit({required this.internetCubit})
+      : super(CounterState(counterValue: 0, isIncreament: false)) {
+    monitorInternetCubit();
+  }
+
+  StreamSubscription<InternetState> monitorInternetCubit() {
+    return internetStreamSubscription =
+        internetCubit.stream.listen((internetState) {
+      if (internetState is InternetConnected &&
+          internetState.connectionType == ConnectionType.wifi) {
+        increment();
+      } else {
+        if (internetState is InternetConnected &&
+            internetState.connectionType == ConnectionType.mobile) {
+          decrement();
+        }
+      }
+    });
+  }
 
   void increment() {
     emit(
