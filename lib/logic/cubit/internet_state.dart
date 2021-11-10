@@ -10,6 +10,9 @@ class InternetConnected extends InternetState {
   InternetConnected({
     required this.connectionType,
   });
+
+  @override
+  String toString() => 'InternetConnected(connectionType: $connectionType)';
 }
 
 class InternetDisconnected extends InternetState{}

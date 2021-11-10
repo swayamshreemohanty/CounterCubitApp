@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 part 'counter_state.dart';
 
-class CounterCubit extends Cubit<CounterState> {
-  CounterCubit() : super(CounterState(counterValue: 0, isIncreament: false)) {
-    print("Counter Cubit Started");
-  }
+class CounterCubit extends Cubit<CounterState> with HydratedMixin {
+  CounterCubit() : super(CounterState(counterValue: 0, isIncreament: false));
 
   void increment() {
     emit(
@@ -24,5 +24,18 @@ class CounterCubit extends Cubit<CounterState> {
         ),
       );
     }
+  }
+
+//Use to retrive stored data
+  @override
+  CounterState? fromJson(Map<String, dynamic> json) {
+    return CounterState.fromMap(json);
+  }
+
+//Use to save data to storage
+  @override
+  Map<String, dynamic>? toJson(CounterState state) {
+    // addError(Exception("Couldn't write to storage!"), StackTrace.current);
+    return state.toMap();
   }
 }
