@@ -13,6 +13,7 @@ class CounterCubit extends Cubit<CounterState> {
 
   CounterCubit({required this.internetCubit})
       : super(CounterState(counterValue: 0, isIncreament: false)) {
+    print("Counter Cubit Started");
     monitorInternetCubit();
   }
 

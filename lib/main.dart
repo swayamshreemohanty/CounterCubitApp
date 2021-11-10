@@ -7,6 +7,7 @@ import 'package:counter_bloc_cubit/logic/cubit/counter_cubit.dart';
 import 'package:counter_bloc_cubit/presentation/router/screen_route.dart';
 
 void main() {
+  print("Main()");
   runApp(MyApp(
     connectivity: Connectivity(),
     screenRouter: ScreenRouter(),
