@@ -1,6 +1,7 @@
+import 'package:counter_bloc_cubit/presentation/screen/second_screen.dart';
+import 'package:counter_bloc_cubit/presentation/screen/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:counter_bloc_cubit/constants/enums.dart';
 import 'package:counter_bloc_cubit/logic/bloc/counter_bloc.dart';
 import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
@@ -128,24 +129,24 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
               const SizedBox(height: 50),
 
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: ElevatedButton(
-              //     child: const Text("Second Screen"),
-              //     onPressed: () {
-              //       Navigator.of(context).pushNamed(SecondScreen.routeName);
-              //     },
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: ElevatedButton(
-              //     child: const Text("Third Screen"),
-              //     onPressed: () {
-              //       Navigator.of(context).pushNamed(ThirdScreen.routeName);
-              //     },
-              //   ),
-              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  child: const Text("Second Screen"),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(SecondScreen.routeName);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  child: const Text("Third Screen"),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(ThirdScreen.routeName);
+                  },
+                ),
+              ),
             ],
           ),
         ),

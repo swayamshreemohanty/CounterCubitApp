@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenRouter {
-
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case FirstScreen.routeName:
@@ -13,14 +12,14 @@ class ScreenRouter {
           builder: (_) => FirstScreen(),
         );
 
-      // case SecondScreen.routeName:
-      //   return MaterialPageRoute(
-      //     builder: (_) => SecondScreen(),
-      //   );
-      // case ThirdScreen.routeName:
-      //   return MaterialPageRoute(
-      //     builder: (_) => ThirdScreen(),
-      //   );
+      case SecondScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => SecondScreen(),
+        );
+      case ThirdScreen.routeName:
+        return MaterialPageRoute(
+          builder: (_) => ThirdScreen(),
+        );
       default:
         return errorRoute();
     }
