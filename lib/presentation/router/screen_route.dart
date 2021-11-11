@@ -13,14 +13,14 @@ class ScreenRouter {
           builder: (_) => FirstScreen(),
         );
 
-      case SecondScreen.routeName:
-        return MaterialPageRoute(
-          builder: (_) => SecondScreen(),
-        );
-      case ThirdScreen.routeName:
-        return MaterialPageRoute(
-          builder: (_) => ThirdScreen(),
-        );
+      // case SecondScreen.routeName:
+      //   return MaterialPageRoute(
+      //     builder: (_) => SecondScreen(),
+      //   );
+      // case ThirdScreen.routeName:
+      //   return MaterialPageRoute(
+      //     builder: (_) => ThirdScreen(),
+      //   );
       default:
         return errorRoute();
     }

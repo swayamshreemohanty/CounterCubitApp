@@ -1,18 +1,14 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:counter_bloc_cubit/logic/bloc/counter_bloc.dart';
 import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
-import 'package:counter_bloc_cubit/logic/utility/app_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:counter_bloc_cubit/logic/cubit/counter_cubit.dart';
 import 'package:counter_bloc_cubit/presentation/router/screen_route.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
-  print("Main()");
-  Bloc.observer = AppBlocObserver();
-
+  // Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
@@ -41,8 +37,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<InternetCubit>(
           create: (context) => InternetCubit(connectivity: connectivity),
         ),
-        BlocProvider<CounterCubit>(
-          create: (context) => CounterCubit(),
+        BlocProvider<CounterBloc>(
+          create: (context) => CounterBloc(),
         ),
       ],
       child: MaterialApp(
@@ -50,7 +46,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        onGenerateRoute: ScreenRouter().onGenerateRoute,
+        onGenerateRoute: screenRouter.onGenerateRoute,
       ),
     );
   }

@@ -1,10 +1,11 @@
-import 'package:counter_bloc_cubit/constants/enums.dart';
-import 'package:counter_bloc_cubit/logic/cubit/counter_cubit.dart';
-import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
-import 'package:counter_bloc_cubit/presentation/screen/second_screen.dart';
-import 'package:counter_bloc_cubit/presentation/screen/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:counter_bloc_cubit/constants/enums.dart';
+import 'package:counter_bloc_cubit/logic/bloc/counter_bloc.dart';
+import 'package:counter_bloc_cubit/logic/cubit/internet_cubit.dart';
+
+import '../../logic/bloc/counter_state.dart';
 
 class FirstScreen extends StatefulWidget {
   // const FirstScreen({Key? key, required this.title}) : super(key: key);
@@ -29,11 +30,13 @@ class _FirstScreenState extends State<FirstScreen> {
       listener: (context, state) {
         if (state is InternetConnected &&
             state.connectionType == ConnectionType.wifi) {
-          BlocProvider.of<CounterCubit>(context).increment();
+          BlocProvider.of<CounterBloc>(context).add(
+            Increment(checkData: "Increment by WiFi"),
+          );
         } else {
           if (state is InternetConnected &&
               state.connectionType == ConnectionType.mobile) {
-            BlocProvider.of<CounterCubit>(context).decrement();
+            BlocProvider.of<CounterBloc>(context).add(Decrement());
           }
         }
       },
@@ -66,7 +69,7 @@ class _FirstScreenState extends State<FirstScreen> {
               const SizedBox(height: 30),
 
               //BLoC consumer is used to combine the both BLoC builder and BLoC Listener in a single body
-              BlocConsumer<CounterCubit, CounterState>(
+              BlocConsumer<CounterBloc, CounterState>(
                 listener: (context, state) {
                   if (state.isIncreament) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -105,7 +108,9 @@ class _FirstScreenState extends State<FirstScreen> {
                   FloatingActionButton(
                     heroTag: null,
                     onPressed: () {
-                      BlocProvider.of<CounterCubit>(context).increment();
+                      BlocProvider.of<CounterBloc>(context).add(
+                        Increment(checkData: "From screen 1"),
+                      );
                     },
                     tooltip: 'Increment',
                     child: const Icon(Icons.add),
@@ -114,7 +119,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   FloatingActionButton(
                     heroTag: null,
                     onPressed: () {
-                      BlocProvider.of<CounterCubit>(context).decrement();
+                      BlocProvider.of<CounterBloc>(context).add(Decrement());
                     },
                     tooltip: 'Decrement',
                     child: const Icon(Icons.remove),
@@ -123,24 +128,24 @@ class _FirstScreenState extends State<FirstScreen> {
               ),
               const SizedBox(height: 50),
 
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  child: const Text("Second Screen"),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(SecondScreen.routeName);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  child: const Text("Third Screen"),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(ThirdScreen.routeName);
-                  },
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: ElevatedButton(
+              //     child: const Text("Second Screen"),
+              //     onPressed: () {
+              //       Navigator.of(context).pushNamed(SecondScreen.routeName);
+              //     },
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: ElevatedButton(
+              //     child: const Text("Third Screen"),
+              //     onPressed: () {
+              //       Navigator.of(context).pushNamed(ThirdScreen.routeName);
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),
