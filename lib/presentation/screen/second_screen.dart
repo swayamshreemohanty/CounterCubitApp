@@ -119,7 +119,7 @@ class _SecondScreenState extends State<SecondScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: widget.color),
+                // style: ElevatedButton.styleFrom(primary: widget.color),
                 child: const Text("First Screen"),
                 onPressed: () {
                   Navigator.of(context).pop();

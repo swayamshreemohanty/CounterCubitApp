@@ -116,7 +116,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: widget.color),
+                // style: ElevatedButton.styleFrom(primary: widget.color),
                 child: const Text("First Button"),
                 onPressed: () {
                   Navigator.of(context).pop();
